@@ -3,14 +3,14 @@
 let datos = []
 let informacion = true;
 let cadacard = null;
-let validaciones=true
+let validaciones = true
 
 function enviar() {
-    
-        // // validacion()
-        if(!validacion()){
-            document.getElementById("citas").textContent = "";
-    }else{
+
+    // // validacion()
+    if (!validacion()) {
+        document.getElementById("citas").textContent = "";
+    } else {
         if (informacion === true) {
 
             let inf = {}
@@ -44,14 +44,16 @@ function enviar() {
             informacion = true
             limpiar()
         }
-        document.getElementById("Alerta1").setAttribute("style","display:block !important")
-        document.getElementById("mensaje1").textContent="Los datos fueron exitosamente enviados"
-        setTimeout(()=>{
-            document.getElementById("Alerta1").setAttribute("style","display:none !important")
-            document.getElementById("mensaje1").textContent=""  
-    
-        },5000)
+        document.getElementById("Alerta1").setAttribute("style", "display:block !important")
+        document.getElementById("mensaje1").textContent = "Los datos fueron exitosamente enviados"
+        setTimeout(() => {
+            document.getElementById("Alerta1").setAttribute("style", "display:none !important")
+            document.getElementById("mensaje1").textContent = ""
+
+        }, 5000)
+        pintar
     }
+
 }
 function limpiar() {
     document.getElementById("nom").value = ""
@@ -94,7 +96,7 @@ function validacion() {
             document.getElementById("mensaje").textContent = ""
         }, 3000);
         return false
-    } else if(document.getElementById("tel").value.length < 10){
+    } else if (document.getElementById("tel").value.length < 10) {
         document.getElementById("Alerta").setAttribute("style", "display:block !important")
         document.getElementById("mensaje").textContent = "Por favor digite su numero de telefono que sea mayor a  10 numeros"
 
@@ -103,7 +105,7 @@ function validacion() {
             document.getElementById("mensaje").textContent = ""
         }, 3000);
         return false
-    }else if (!document.getElementById("fecha").value) {
+    } else if (!document.getElementById("fecha").value) {
         document.getElementById("Alerta").setAttribute("style", "display:block !important")
         document.getElementById("mensaje").textContent = "Por favor digite la fecha "
 
@@ -158,10 +160,10 @@ function validacion() {
         }, 3000);
         return false //aca me esta diciendo que si es falso muestra el error y no envia la infomacion
 
-   }  else{
+    } else {
         return true //si es verdadero envia la informacion
-   
-}
+
+    }
 }
 // function selector(){
 //     let select=datos.find(Element => Element.)
@@ -181,7 +183,9 @@ function pintar() {
     datos.forEach((item, i) => {
         console.log(item)
         let div = document.createElement("div")
-        div.setAttribute("id", "card");
+        div.setAttribute("id", `card-${i}`);
+        // div.setAttribute("id","todascard")
+        div.classList.add('tarjetas')
 
         //  div.setAttribute("id", `cita-${cita.id}`);
         // div.setAttribute("id", `card${cita.id}`);
@@ -246,7 +250,7 @@ function pintar() {
 
         let eliminar = document.createElement("button")
         eliminar.setAttribute("id", "eliminar")
-        eliminar.textContent = "Eliminar"
+        eliminar.textContent = "⨷"
         botones.appendChild(eliminar)
         eliminar.addEventListener("click", () => {
 
@@ -258,7 +262,9 @@ function pintar() {
         editar.setAttribute("id", "editar")
         editar.textContent = "Editar📝"
         botones.appendChild(editar)
-        nombreContainer.appendChild(botones)
+
+        
+
         editar.addEventListener("click", () => {
             informacion = false;
             document.getElementById("nom").value = item.nombre
@@ -272,130 +278,74 @@ function pintar() {
             cadacard = i;
 
         })
-        // div.setAttribute("data-estado", item.estado); 
-        // let select = document.createElement("select")
-        // select.setAttribute("id", "select")
-        // let op = ["Abierta", "Cerrada", "Anulada"];
-        // op.forEach((item) => {
-        //     let op1 = document.createElement("option")
-        //     op1.textContent = item
-
-        //     select.appendChild(op1)
-        // })
-        //         let select = document.createElement("select");
-        // select.setAttribute("id", `select-${i}`); // Asigna un ID único a cada select
-        // div.setAttribute("data-estado", item.estado);
-
-        // let op = ["Abierta", "Cerrada", "Anulada"];
-        // op.forEach((estado) => {
-        //     let option = document.createElement("option");
-        //     option.textContent = estado;
-        //     select.appendChild(option);
-        // });
-        //         select.addEventListener("change", (event) => {
-        //             const nuevoEstado = event.target.value;
-        //             datos[i].estado = nuevoEstado;
-        //             console.log(datos);
-        //         });
 
         let select = document.createElement("select");
         // select.setAttribute("id", `select`);
         select.setAttribute("id", `select-${i}`);
-        // div.setAttribute("data-estado", item.estado);
-
+        select.classList.add('selectop')
         let op = ["Abierta", "Cerrada", "Anulada"];
         op.forEach((estado) => {
             let option = document.createElement("option");
             // setAttribute("id", "op")
             option.textContent = estado;
             select.appendChild(option);
+
+        });
+        select.addEventListener('change', (event) => {
+            // Actualizar el estado de la cita cuando cambie el select
+            datos[i].estado = event.target.value;
         });
 
+        if (item.estado && op.includes(item.estado)) {//Estamos berificando si el estado de la cita existe y si se cambio a otro estado
+            select.value = item.estado;// aca se guar el estado selecciona y lo muestra
+        } else {
+            select.value = "Abierta"; // Establecer estado inicial a "Abierta"
+        }
 
-        select.addEventListener("change", (event) => {
-            const nuevoEstado = event.target.value;
-            datos[i].estado = nuevoEstado;
-            console.log(datos);
-        });
+        console.log(datos);
 
 
         botones.appendChild(select)
+        nombreContainer.appendChild(botones)
         div.appendChild(nombreContainer)
 
         document.getElementById("citas").appendChild(div);
     })
 
-    //este es el estado en el que vamos a selecionar paa que las citas nos aparescan dependiendo su estado
-    const AbiertoRadio = document.getElementById("abierto")
-    const CerradoRadio = document.getElementById("cerrado")
-    const AnuladoRadio = document.getElementById("anulado")
-    // aca vamos a filtarar el estado de cada cita y pues dependiendo eol click que se haga 
-    //  para saber cuales citas son del estado que ele corresponde
-    AbiertoRadio.addEventListener("change", () => {
-        filtaracitas("Abierto")
-    })
-    CerradoRadio.addEventListener("change", () => {
-        filtaracitas("Cerrado")
-    })
-    AnuladoRadio.addEventListener("change", () => {
-        filtaracitas("Anulado")
-    })
+
 
 
 }
 
-// function filtaracitas(estado) {
-   
-// // Agrega un evento change al select que filtra las citas por estado
-// // Agrega un evento change al select que filtra las citas por estado
+document.addEventListener("DOMContentLoaded", function () {
+    // Agregar evento de cambio al select HTML existente
+    const selectHtml = document.getElementById('estadocita');
+    selectHtml.addEventListener('change', filtrarCards);
 
-    
 
-//     datos.forEach(card => {
-        
-//      const citas = document.querySelectorAll('[id^="card"]');
-//         const select = document.getElementById('select');
-//         const cardEstado = select.value;
-//         console.log(cardEstado)
-//         // consolog.log(estado)
-//         console.log(estado)
-//         if (estado === cardEstado) {
-//             card.citas.style.display = "block";
-//             citas.push(datos)
-//             console.log(citas)
-//         } else {
-//             card.citas.style.display = "none";
-//             console.log("no hay mas citas con ese estado")
-//             // Ocultar la tarjeta si el estado no coincide
-//         }
-//     })
-//     pintar()
-// }
-// function filtaracitas(estado) {
-//     datos.forEach((card, index) => {
-//         const cardEstado = card.opcions;
-//         console.log(cardEstado)
-//         if (estado === cardEstado) {
-//             document.getElementById(`card-${index}`).style.display = "block";
-//         } else {
-//             document.getElementById(`card-${index}`).style.display = "none";
-//         }
-//     });
-// }
-function filtaracitas(estado) {
-    datos.forEach((card, index) => {
-        const cardEstado = card.select.value;
-        const cardElement = document.getElementById(`card-${index}`);
-        if (estado === cardEstado) {
-            cardElement.style.display = "block";
+    // Llamar a la función para mostrar todas las citas al cargar la página
+    pintar();
+});
+
+function filtrarCards() {
+    // Obtener el valor seleccionado en el select HTML
+    const estadoSeleccionado = document.getElementById('estadocita').value;
+
+    // Iterar sobre todas las cartas y mostrar u ocultar según el estado seleccionado
+    datos.forEach((item, i) => {
+        const card = document.getElementById(`card-${i}`);
+        const selectValue = document.getElementById(`select-${i}`).value;
+        if (estadoSeleccionado === 'todos' || estadoSeleccionado === selectValue) {
+            card.style.display = 'block'; // Mostrar la carta
+            // card.classList.add('grid-display');// Agregar la clase para mostrar la tarjeta
         } else {
-            cardElement.style.display = "none";
+            card.style.display = 'none'; // Ocultar la carta
         }
+        console.log(selectValue)
+        console.log(estadoSeleccionado)
     });
+    // pintar()
 }
-
-
-
 
 
 
