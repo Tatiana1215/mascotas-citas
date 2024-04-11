@@ -44,7 +44,8 @@
             </div>
         </div>
     </div>
-    <div class="alert alert-success d-flex align-items-center" id="Alerta1" role="alert" style="display: none !important;">
+    <div class="alert alert-success d-flex align-items-center" id="Alerta1" role="alert"
+        style="display: none !important;">
         <div id="alerta-mensaje1">
             <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Success:">
                 <use xlink:href="#check-circle-fill" />
@@ -70,39 +71,51 @@
             <div id="contenedor">
                 <div class="inf">
                     <h5>Nombre:</h5>
-                    <input type="text" name="" id="nom" placeholder="Nombre de la mascota">
+                    <div class="contenedor">
+                        <input type="text" name="" id="nom" placeholder="Nombre de la mascota">
+                    </div>
                 </div>
 
                 <div class="inf">
                     <h5>Propietario:</h5>
-                    <input type="text" name="" id="prop" placeholder="Nombre de Propietario">
+                    <div class="contenedor">
+                        <input type="text" name="" id="prop" placeholder="Nombre de Propietario">
+                    </div>
                 </div>
 
                 <div class="inf">
                     <h5>Telefono:</h5>
-                    <input type="text" name="" id="tel" placeholder="Telefono del Propietario">
+                    <div class="contenedor">
+                        <input type="text" name="" id="tel" placeholder="Telefono del Propietario">
+                    </div>
                 </div>
 
                 <div class="inf">
                     <h5>Fecha:</h5>
-                    <input type="date" name="" id="fecha">
+                    <div class="contenedor">
+                        <input type="date" name="" id="fecha">
+                    </div>
                 </div>
 
                 <div class="inf">
                     <h5>Hora:</h5>
-                    <input type="time" name="" id="hora">
+                    <div class="contenedor">
+                        <input type="time" name="" id="hora">
+                    </div>
                 </div>
 
                 <div class="inf" onchange="mostrarImagen()">
                     <h5>Tipo de mascota:</h5>
-                    <select name="" id="op">
-                        <option value="Gato">Gato</option>
-                        <option value="Perro">Perro</option>
-                        <option value="Conejo">Conejo</option>
-                        <option value="Cerdo">Cerdo</option>
-                        <option value="Pato">Pato</option>
-                        <option value="Pez">Pez</option>
-                    </select>
+                    <div class="contenedor">
+                        <select name="" id="op">
+                            <option value="Gato">Gato</option>
+                            <option value="Perro">Perro</option>
+                            <option value="Conejo">Conejo</option>
+                            <option value="Cerdo">Cerdo</option>
+                            <option value="Pato">Pato</option>
+                            <option value="Pez">Pez</option>
+                        </select>
+                    </div>
                 </div>
 
 
@@ -130,19 +143,20 @@
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
-                <div class="modal-content">
+
+                <div class="modal-content" style=" background-image: url(./img/fondocitas.jpg);">
                     <div class="modal-header">
                         <!-- <h5 class="modal-title" id="exampleModalLabel">Modal Extra Grande</h5> -->
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <select name="" id="estadocita">
-                            <option  value="Abierta">Abierta</option>
+                            <option value="Abierta">Abierta</option>
                             <option id="estadoc" value="Cerrada">Cerrada</option>
                             <option id="estadoan" value="Anulada">Anulada</option>
 
-                        </select> 
-                        
+                        </select>
+
                         <!-- <div id="estatocita">
                             <h2>Estado de cita</h2>
                             <label for="estado">

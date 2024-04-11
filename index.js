@@ -263,7 +263,7 @@ function pintar() {
         editar.textContent = "Editar📝"
         botones.appendChild(editar)
 
-        
+
 
         editar.addEventListener("click", () => {
             informacion = false;
