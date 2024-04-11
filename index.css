@@ -366,14 +366,7 @@ bottom: 30px;
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         grid-gap: 20px;
-
     }
-
-    #imagenani {
-        height: 40vh;
-    }
-
-
 }
 
 @media screen and (max-width:375px) and (min-width:300px) {
